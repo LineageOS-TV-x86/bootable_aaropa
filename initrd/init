@@ -47,7 +47,6 @@ bliss_feature() {
 
 ## DO NOT PRESS "TAP TO FIX", IT WILL FORMAT THE DRIVE!
 EOF
-		export REAL_FSTAB=/system/vendor/etc/fstab.internal.x86
 	fi
 
 	# Enabling AOSP features for PC
@@ -56,7 +55,6 @@ EOF
 # WARNING: PC_MODE will not work once Magisk or KernelSU modules are installed.
 # Visit BlissOS wiki for more info & solutions
 EOF
-		mount --bind /system/etc/hidden_xml/pc.xml /system/etc/permissions/pc.xml
 	fi
 
 	if [ "$HPE" -gt "0" ]; then
@@ -64,7 +62,6 @@ EOF
 # WARNING: HPE will not work once Magisk or KernelSU modules are installed.
 # Visit BlissOS wiki for more info & solutions
 EOF
-		mount --bind /system/etc/hidden_xml/hpe.xml /system/etc/sysconfig/hpe.xml
 	fi
 
 	# Hide bootctrl from VINTF manifest if we don't set up virtual A/B
@@ -73,12 +70,6 @@ EOF
 # WARNING: The system is not prepared with Virtual A/B, 
 # so OTA Update will not be supported
 EOF
-		cat <<'EOF' >/tmp/fakeboot.xml
-<?xml version="1.0" encoding="utf-8"?>
-<manifest version="1.0" type="device">
-</manifest>
-EOF
-		mount --bind /tmp/fakeboot.xml /system/vendor/etc/vintf/manifest/android.hardware.boot@1.2.xml
 	fi
 
 	# Hide BLE feature from the system
@@ -86,12 +77,6 @@ EOF
 		cat <<EOF
 # NOTICE: BLE is set to be disabled
 EOF
-		cat <<EOF >/tmp/noble.xml
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-</permissions>
-EOF
-		mount --bind /tmp/noble.xml /system/vendor/etc/permissions/android.hardware.bluetooth_le.xml
 	fi
 }
 
